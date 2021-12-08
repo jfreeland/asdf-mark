@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+
+set -Eeuo pipefail
+
+binary_name="mark"
+
+install() {
+  local version=$2
+  local install_path=$3
+  platform="$(uname -s)"
+  readonly platform
+  arch="$(uname -m)"
+  readonly arch
+  local filename="${binary_name}_${version}_${platform}_${arch}.tar.gz"
+
+  local bin_install_path="$install_path/bin"
+  local binary_path="$bin_install_path/mark"
+  local download_url="https://github.com/kovetskiy/mark/releases/download/${version}/${filename}"
+
+  echo "Creating bin directory"
+  mkdir -p "${bin_install_path}"
+
+  echo "Downloading mark from ${download_url} to ${binary_path}.tgz"
+  curl -L "${download_url}" -o "${binary_path}.tgz"
+  pushd "$(dirname "${binary_path}")" > /dev/null
+  tar -xzvf "${binary_path}.tgz"
+
+  rm -rf "${binary_path}.tgz"
+  chmod +x "${binary_path}"
+
+  popd > /dev/null
+}
+
+install "$ASDF_INSTALL_TYPE" "$ASDF_INSTALL_VERSION" "$ASDF_INSTALL_PATH"
