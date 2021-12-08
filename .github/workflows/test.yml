@@ -15,6 +15,6 @@ jobs:
         uses: asdf-vm/actions/plugin-test@v1
         with:
           version: ${{ matrix.ver }}
-          command: ./mark -v
+          command: mark -v
         env:
           GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
