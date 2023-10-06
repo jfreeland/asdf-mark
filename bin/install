@@ -11,7 +11,7 @@ install() {
   readonly platform
   arch="$(uname -m)"
   readonly arch
-  local filename="${binary_name}_${version}_${platform}_${arch}.tar.gz"
+  local filename="${binary_name}_${platform}_${arch}.tar.gz"
 
   local bin_install_path="$install_path/bin"
   local binary_path="$bin_install_path/mark"
